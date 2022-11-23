@@ -1,0 +1,25 @@
+1 table pour tous les titres avec id_album
+
+
+photos quand on ouvre l'album 
+photo s'affiche pas car la fonction js est plus rapide que l'affichage du modale en html, 
+le getElementById == null
+
+
+Fixer les bugs dans l'ajout de cd, id_unique qui met 2 par exemple quand il nest pas utilisé
+Optimiser la table SQL pour l'id unique
+
+
+si fractale fonctionne : pas sans internet
+https://pixees.fr/informatiquelycee/p5_dom_a1.html
+
+
+différence entre fractale en index.html et sur vueJS : p5.dom.min 
+Cannot read properties of undefined (reading 'prototype')
+
+Build de vuejs dans le back ? index.html
+
+Creer une image du front, mais pas du back pour l'instant*
+Lancer le front sur rapsberry
+lancer le back
+Installer mysql, créer BDD et les tables
