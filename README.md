@@ -34,5 +34,5 @@ python app.py
 ```
 mysql -u {username} -p
 {password}
-'Run commands in init.sql'
+'Run commands in init.sql in db/'
 ```
