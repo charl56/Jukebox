@@ -36,3 +36,5 @@ mysql -u {username} -p
 {password}
 'Run commands in init.sql in db/'
 ```
+
+NODE_OPTIONS=--max-old-space-size=1024 npm install
