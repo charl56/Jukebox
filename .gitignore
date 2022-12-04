@@ -1,6 +1,13 @@
 # Frontend
-/dist
-
+dist/
+node_modules/
 
 # Backend
 env/
+__pycache__/
+*.pyc
+
+
+# Other
+OuJenSuis.tkt
+test/
