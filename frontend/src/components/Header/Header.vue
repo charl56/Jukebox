@@ -8,8 +8,8 @@
             <v-row justify="center">
                 <v-dialog v-model="dialog" transition="dialog-top-transition" max-width="600px">
                     <template v-slot:activator="{ on, attrs }">
-                        <v-btn class="mx-2" fab dark color="warning" v-bind="attrs" v-on="on">
-                            <v-icon dark> mdi-plus </v-icon>
+                        <v-btn id="buttonAdd" class="" fab dark v-bind="attrs" v-on="on">
+                            <v-icon dark>+</v-icon>
                         </v-btn>
                     </template>
                     <v-card>
@@ -32,7 +32,7 @@
                                         </v-text-field>
                                     </v-col>    
                                     <v-col cols="12" sm="6" md="4" >
-                                        <v-file-input accept="image/png, image/jpeg" label="Pochette de l'album" :rules="rules" truncate-length="15" ></v-file-input>
+                                        <v-file-input show-size accept="image/jpg" label="Pochette de l'album" :rules="rules" truncate-length="15" ></v-file-input>
                                     </v-col>  
                                 </v-row>
                             </v-container>
@@ -78,7 +78,7 @@ import axios from 'axios';
             myArtist: '',
             mySongNb:'',
             rules: [
-                value => !value || value.size < 2000000 || 'Album size should be less than 2 MB!',
+                value => !value || value.size < 2000000 || 'Album picture\'s size should be less than 2 MB!',
             ],
         }
     },
@@ -106,16 +106,12 @@ import axios from 'axios';
             else{  
                 this.dialog = false;
                 this.saveSongDB();
-                this.myAlbum = "";
+                this.myAlbum = this.myArtist = this.mySongNb = null;
             }
         },
         async saveSongDB() {
-            console.log("SaveSongDb")
-            var myAlbum = this.myAlbum;
-            var myArtist = this.myArtist;
-            var mySongNb = this.mySongNb;
-            
-            const postData = { requete: "SaveSongDb", myAlbum: myAlbum, myArtist: myArtist, mySongNb: mySongNb };
+            console.log("SaveSongDb")            
+            const postData = { requete: "SaveSongDb", myAlbum: this.myAlbum, myArtist: this.myArtist, mySongNb: this.mySongNb };
             await axios.post(this.$flaskUrl+"/SaveSongDb", postData)
              // await axios.post(this.$flaskUrl+"/listCd")
              .then(response => {
@@ -134,24 +130,24 @@ import axios from 'axios';
 <style >
 
 .divHeader{
-    background-color: antiquewhite;
-    box-shadow: 0px 2px 5px black;;
+    background-color: #2A4E62;
+    box-shadow: 0px 2px 5px #001C2F;
     margin: 0 !important;
     height: 4em;
 }
 
-/* #loadingBar{
-    margin-top: 0em;
-    margin-bottom: 0em;
-} */
-
 .appTitle{
     text-align: center;
+    color: #B1BAC7;
 }
 
 .colAddSong{
     text-align: center;
     margin-top: 0.2em;
+}
+#buttonAdd{
+    background-color: #B1BAC7 !important;
+    color: white;
 }
 </style>
   

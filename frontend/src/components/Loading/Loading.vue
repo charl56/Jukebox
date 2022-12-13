@@ -32,7 +32,7 @@ export default {
 
 <style>
 .divLoading{
-    background-color: white;;
+    background-color: white;
     width: 100%;
     height: 100%;
 }

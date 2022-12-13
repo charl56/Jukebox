@@ -1,6 +1,7 @@
 # Frontend
 dist/
 node_modules/
+package-lock.json
 
 # Backend
 env/
@@ -9,5 +10,6 @@ __pycache__/
 
 
 # Other
+Modelisation_3D/
 OuJenSuis.tkt
 test/
