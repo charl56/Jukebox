@@ -1,0 +1,6 @@
+## TP : aranacorp.com : communication seie entre raspberry et arduino
+
+## voir tous les tty sur la carte 
+ls /dev/tty*
+## brancher l'Arduino et refaire la commande. Un nouveau tty apparait : 
+ligne 12:   with serial.Serial("/dev/{{ici tty}}", 9600, timeout=1) as arduino:
