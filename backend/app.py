@@ -27,7 +27,7 @@ def getListCd():
       typeRequete = str(request.json['requete'])
       
       listCd = requeteGetListCd(typeRequete)
-      print(listCd)
+      # print(listCd)
 
       MyDict_Data = {}
       # MyDict_Data.clear()
@@ -38,19 +38,23 @@ def getListCd():
          nom_album = cd[2]
          nb_track = cd[3]
          dispo = cd[4]
+         posX = cd[5]
+         posY = cd[6]
          album = { 
             'Id':id,
             'Artiste':artiste, 
             'Nom_Album':nom_album, 
             'Nb_Track':nb_track,
-            'Dispo':dispo
+            'Dispo':dispo,
+            'Pos_X':posX,
+            'Pos_Y':posY
             }
-         print(album)
+         # print(album)
          MyDict_Data[id]=album
          
 
       xData_Json = json.dumps(MyDict_Data, indent = 4) 
-      print(xData_Json)
+      # print(xData_Json)
       
 
       xTrackList = requeteGetTracklist()
@@ -139,6 +143,28 @@ def testImage():
       return jsonify(resp), 200 
    except Exception as e:
       return "error: " + str(e)
+
+## ------------------------------------------
+## Route pour editer position d'un cd, sur la jukebox
+@app.route('/editCdPosition', methods=['POST'])
+def editCdPosition():
+   try:
+      print("editCdPosition")
+
+      typeRequete = str(request.json['requete'])
+      id = request.json['id']
+      cdPositionX = str(request.json['cdPositionX'])
+      cdPositionY = str(request.json['cdPositionY'])
+      print(typeRequete, id, cdPositionX, cdPositionY)
+
+      requeteEditCdPosition(typeRequete, id, cdPositionX, cdPositionY)
+
+      resp = {"success": True}
+      return jsonify(resp), 200 
+   except Exception as e:
+      return "error: " + str(e)
+
+
 
 if __name__ == '__main__':
     # Adresse ip pour créer l'image
