@@ -1,7 +1,14 @@
+## #!/usr/bin/python
+## # -*- coding:utf-8 -*-
 from cmath import e
+import sys
+sys.path.append("/home/jukeboxGit/Jukebox/backend/sqlFolder")
 # import mysql
-from sqlFolder.requete_sql import *
-#  requeteGetListCd, requeteGetTracklist, requeteCreateAlbum, requeteDeleteThisAlbum, requetePlayThisSong
+from requete_sql import *
+#import backend.sqlFolder.requete_sql as requete_sql
+#from backend.sqlFolder.requete_sql import requeteGetListCd
+#from backend.sqlFolder.requete_sql import *
+#  requeteGetListCd, requeteCreateAlbum, requeteDeleteThisAlbum, requetePlayThisSong
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json 
@@ -25,14 +32,14 @@ CORS(app, resources={r'/*': {'origins': '*'}})
 def getListCd():
    try:
       typeRequete = str(request.json['requete'])
-      
+      print(typeRequete)
       listCd = requeteGetListCd(typeRequete)
       print(listCd)
 
       MyDict_Data = {}
       # MyDict_Data.clear()
 
-      for cd in listCd:
+      for cd in listCd: 
          id = cd[0]
          artiste = cd[1]
          nom_album = cd[2]
@@ -53,11 +60,9 @@ def getListCd():
       print(xData_Json)
       
 
-      xTrackList = requeteGetTracklist()
-      xTrackList = json.dumps(xTrackList)
       # ---------------------------
       # Send results back as a json
-      resp = {"success": True, "xData": xData_Json, "xTrackList": xTrackList}
+      resp = {"success": True, "xData": xData_Json}
       return jsonify(resp), 200 
    
    except Exception as e:
@@ -122,26 +127,18 @@ def playThisSong():
 
       pos = requetePlayThisSong(typeRequete, id)
       print("pos : ",pos)
+      
+      # appel python controle servo
 
       resp = {"success": True, "pos": pos}
       return jsonify(resp), 200 
    except Exception as e:
       return "error: " + str(e)
 
-## ------------------------------------------
-## Route pour lancer un son
-@app.route('/testImage', methods=['GET'])
-def testImage():
-   try:
-      print("testImage")
-      data = "dataaa"
-      resp = {"success": True, "xData": data}
-      return jsonify(resp), 200 
-   except Exception as e:
-      return "error: " + str(e)
+
 
 if __name__ == '__main__':
-    # Adresse ip pour créer l'image
     app.run(host='0.0.0.0', port=5025, debug=True)
+    #app.run(host='0.0.0.0', port=5025, debug=True)
     # Adresse ip pour lancer en local
     # app.run(host='127.0.0.1', port=5025, debug=True)

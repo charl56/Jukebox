@@ -1,7 +1,0 @@
-FROM ubuntu
-
-RUN apt update && \
-    apt install -y iputils-ping \
-    net-tools \
-    telnet vim \
-    mysql-client

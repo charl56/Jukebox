@@ -1,21 +1,19 @@
-# import pyodbc
-import mysql.connector
-
+#import pyodbc
+#import mysql.connector
+import mariadb
 
 def loginToDB(database, username, password):
     try:
-        ## Pour le build en docker ##FreeTDS
-        # conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};'
-        #     'SERVER='+'0.0.0.0'+';'
-        #     'DATABASE='+database+';'
-        #     'UID='+username+';'
-        #     'PWD='+ password)
+        print(database, username, password)
+        #conn = mysql.connector.connect(
+        conn = mariadb.connect(
 
-        conn = mysql.connector.connect(
             host="localhost",
             database=database, 
             user=username,
-            password=password)
+            passwd=password)
+        print(conn)
+        print("aaa")
         return conn
 
     except ValueError:

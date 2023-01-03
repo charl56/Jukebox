@@ -27,9 +27,7 @@
                             </v-row>
                           </v-col>
                           <v-col cols="12" sm="4" md="4">
-                            Liste des titres
-                            <div id="tracklist">
-                            </div>
+                          
                           </v-col>
                       </v-row>
                   </v-container>
@@ -59,22 +57,6 @@ export default {
   }
   ,
   mounted(){ // Lance la fonction au chargement de la page
-    axios
-      .get('https://data.angers.fr/api/v2/catalog/datasets/irigo_gtfs_lines/exports/json')
-      .then(reponse =>{
-        console.log(reponse.data)
-      }).catch(error => {
-      this.errorMessage = error.message;
-      console.error("There was an error with data angers", error);
-    });
-    axios
-    .get("http://localhost:5025/testImage")
-      .then(response => {
-        console.log(response.data);
-      }).catch(error => {
-        this.errorMessage = error.message;
-        console.error("There was an error with localhost", error);
-    });
     this.listCd();
   },
   data () {
@@ -99,10 +81,9 @@ export default {
       await axios.post(this.$flaskUrl+"/listCd", postData)
         .then(response => {
           console.log(response.status);
+          console.log(response.data.xData)
           var Json_xData = JSON.parse(response.data.xData)
-          var xTrackList = JSON.parse(response.data.xTrackList)
           console.log("liste en Json", Json_xData)
-          console.log("TrackList", xTrackList)
           
           // Permet de ne pas avoir de double au recharchement de la page
           const elements = document.getElementsByClassName('boxAlbum');
@@ -146,19 +127,6 @@ export default {
             document.getElementById('albums').appendChild(el);        
           }
 
-           // Créer les div pour chaque track de l'album
-          for (const tracks in xTrackList){           
-            const el = document.createElement('div');
-            el.classList.add('boxTrack');
-            this.track = tracks
-            el.addEventListener('click', (event) => {
-              console.log(event);
-              console.log(this.track);
-            });
-            el.innerHTML = "<h4>"+this.myAtrackrtist+"</h4>";
-            // const box = document.getElementById('tracklist');
-            // box.appendChild(el);        
-          }
         }).catch(error => {
           this.errorMessage = error.message;
           console.error("There was an error!", error);

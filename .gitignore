@@ -1,13 +1,13 @@
 # Frontend
-dist/
-node_modules/
+/dist
+/node_modules
+package-lock.json
 
 # Backend
 env/
-__pycache__/
 *.pyc
+*.db
+__pycache__/
 
-
-# Other
-OuJenSuis.tkt
+# Autre
 test/

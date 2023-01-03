@@ -1,7 +1,7 @@
-from sqlFolder.class_requetes import getSqlQueryString
+from class_requetes import getSqlQueryString
 # import numpy as np
 import sqlite3
-from sqlFolder.log import loginToDB 
+from log import loginToDB 
 from dotenv import dotenv_values
 
 ## Requetes qui va chercher la requete sql, par jours
@@ -12,22 +12,25 @@ def requeteGetListCd(typeRequete):
         config = dotenv_values("env/log.env")
         # server = config.get("server")
         # database = config.get("database")
-        username = config.get("username")
-        password = config.get("password")
-
+        username = "root"
+        password = "root"
+        
+        print("connecte")
         conn = loginToDB("jukebox", username, password)
         cursor = conn.cursor()
+        print("connecte")
 
         requete_sql = getSqlQueryString("sqlFolder/query/"+typeRequete+".sql")
         # requete_sql = getSqlQueryString("sqlFolder/query/get"+fileName+"Par"+frequence+".sql")
-
+        
+        print("get requet")
         ##Execute dans la BDD la requete sql, recupere le cursor de connection
         cursor.execute(requete_sql)
         # cursor.execute(requete_sql,startDate,endDate)
         print("exectute commande sql")
 
 
-        data = cursor.fetchall() ## transformer vers un tableau 2D (par contre on a plus les en-têtes)
+        data = cursor.fetchall() ## transformer vers un tableau 2D (par contre on a plus les en-tetes)
         print("Sortie bdd")
 
         conn.close()
@@ -57,7 +60,7 @@ def requeteGetTracklist():
         print("exectute commande sql")
 
 
-        data = cursor.fetchall() ## transformer vers un tableau 2D (par contre on a plus les en-têtes)
+        data = cursor.fetchall() ## transformer vers un tableau 2D (par contre on a plus les en-tetes)
         print("Sortie bdd")
 
         conn.close()
@@ -209,7 +212,7 @@ def requetePlayThisSong(typeRequete, id):
     
 #         cursor.execute(requete_sql, [id])
 #         conn.commit()    
-#         # print(cursor.fetchall()) ## transformer vers un tableau 2D (par contre on a plus les en-têtes)
+#         # print(cursor.fetchall()) ## transformer vers un tableau 2D (par contre on a plus les en-tetes)
 #         # cursor.execute(requete_sql,startDate,endDate)
 #         print("exectute commande sql")
 
