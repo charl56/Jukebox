@@ -67,9 +67,11 @@
             <div class="" id="centre-cd"></div>
           </v-img>
           <!-- <button  >Stop</button> -->
-          <v-icon @click="replayThisSong()">{{ svgPlay }}</v-icon>
-          <v-icon @click="pauseThisSong()">{{ svgPause }}</v-icon>
-          <v-icon @click="stopThisSong()">{{ svgStop }}</v-icon>
+          <div class="d-flex align-center justify-center">
+            <v-img class="btn-music" @click="replayThisSong()" src="../../assets/logoButtons/play-circle-outline.png"> </v-img>
+            <v-img class="btn-music" @click="pauseThisSong()" src="../../assets/logoButtons/pause-circle-outline.png"> </v-img>
+            <v-img class="btn-music" @click="stopThisSong()" src="../../assets/logoButtons/stop-circle-outline.png"> </v-img>
+          </div>
 
       </div>
     </v-col>
@@ -151,10 +153,6 @@
 
 <script  >
 import axios from 'axios';
-import { mdiDatabaseArrowDown } from '@mdi/js';
-import { mdiArrowRightDropCircleOutline } from '@mdi/js';
-import { mdiPauseCircleOutline } from '@mdi/js';
-import { mdiStopCircleOutline } from '@mdi/js';
  
 
 export default {
@@ -184,10 +182,6 @@ export default {
       cd_list: null,
       showModalEditCdPosition: false,
       url: 'no_disque',
-      svgPath: mdiDatabaseArrowDown,
-      svgPlay: mdiArrowRightDropCircleOutline ,
-      svgPause: mdiPauseCircleOutline,
-      svgStop: mdiStopCircleOutline 
     }
   },
   methods:{
@@ -413,13 +407,12 @@ export default {
   width: 100%;
 }
 
-/* .cd-play{
-  background-color: red;
-  height: 100%;
-  width: 100%;
-  padding-left: 0;
+.btn-music{
+  width: 20px;
+  height: 20px;
+}.btn-music:hover{
+  cursor: pointer;
 }
-  */
 
 
 .height-100{
