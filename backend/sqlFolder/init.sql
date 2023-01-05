@@ -25,7 +25,7 @@ INSERT INTO cd_list ( artiste, album_name, nb_tracks, pos_x, pos_y, dispo) VALUE
 --  Create table tracklist
 CREATE TABLE tracklist(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    id_album INT NOT NULL,
+    id_album INT NOT NULL REFERENCES cd_list(id),
     name varchar(20) NOT NULL
 );
 

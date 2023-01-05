@@ -1,14 +1,15 @@
 <template>
   <v-app>
 
-    <div id="app">
-      <Header msg="Welcome to JukeBox"/>
+    <!-- <div id="app"> -->
+    <div>
+      <Header />
       <Table />
       <v-col md="6" sm="6">
         <!-- <FractaleTree /> -->
       </v-col>
       <v-col md="6" sm="6">
-        <FractaleNGon />
+        <!-- <FractaleNGon /> -->
       </v-col>
     </div>
   </v-app>
@@ -19,7 +20,8 @@
 import Table from './components/Table/Table.vue'
 import Header from './components/Header/Header.vue'
 // import FractaleTree from './components/Fractale/FractaleTree.vue'
-import FractaleNGon from './components/Fractale/FractaleNGon.vue'
+// import FractaleNGon from './components/Fractale/FractaleNGon.vue'
+
 
 export default {
   name: 'App',
@@ -27,7 +29,7 @@ export default {
     Table,
     Header,
     // FractaleTree,
-    FractaleNGon
+    // FractaleNGon
   }
 }
 </script>
@@ -39,6 +41,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 60px; */
+  background-color: #FFF2DC;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 </style>

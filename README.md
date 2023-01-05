@@ -1,40 +1,16 @@
 # Launch project
 
-## Required : 
+## 1 : pull frontend from Docker hub
 ```
-node
-npm
-python
-pip
-mysql
+docker pull charlo56/projet_jukebox:frontend
 ```
 
-## Git : pull project
+## : pull project
 ```
 git clone https://github.com/charl56/Jukebox.git
 ```
 
-## Frontend : 
-```
-cd frontend
-npm install
-npm run serve
+## . : install MYSQL
 ```
 
-## Backend :
 ```
-cd backend
-python -m venv env
-(powerShell) env/Script/active
-pip install -R requirements.txt
-python app.py
-```
-
-## Database :
-```
-mysql -u {username} -p
-{password}
-'Run commands in init.sql in db/'
-```
-
-NODE_OPTIONS=--max-old-space-size=1024 npm install

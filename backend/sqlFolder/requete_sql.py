@@ -168,7 +168,34 @@ def requetePlayThisSong(typeRequete, id):
 
 
 
+def requeteEditCdPosition(typeRequete, id, cdPositionX, cdPositionY):
+    try :        
+        # Connexion BDD
+        config = dotenv_values("env/log.env")
+        # server = config.get("server")
+        # database = config.get("database")
+        username = config.get("username")
+        password = config.get("password")
 
+        conn = loginToDB("jukebox", username, password)
+        cursor = conn.cursor()
+        print("connecte bdd")
+
+        requete_sql = getSqlQueryString("sqlFolder/query/"+typeRequete+".sql")
+
+        ##Execute dans la BDD la requete sql, recupere le cursor de connection
+        edit = (cdPositionX, cdPositionY, id)
+        cursor.execute(requete_sql, edit)
+        conn.commit()    
+
+        # cursor.execute(requete_sql,startDate,endDate)
+        print("exectute commande sql")
+
+        conn.close()
+
+
+    except sqlite3.Error as error:
+        print("Failed to read data from table", error)
 
 
 
