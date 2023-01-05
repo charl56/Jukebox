@@ -22,7 +22,6 @@ import Header from './components/Header/Header.vue'
 // import FractaleTree from './components/Fractale/FractaleTree.vue'
 // import FractaleNGon from './components/Fractale/FractaleNGon.vue'
 
-import './style.css'
 
 export default {
   name: 'App',

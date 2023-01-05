@@ -1,14 +1,14 @@
 <template>
   <div id="idTable" class="tableAlbum">
 
-        
+
     <!-- <div v-if="n == 3 && k == 2" class="background2">
           f
         </div>
         <div v-else md="2" class="background" >
           aaaa {{n}}, {{k}}
         </div> -->
-<!-- 
+<!--
       <div class="" v-for="n in 5" :key="n" >
         <v-col class="" v-for="k in 3" :key="k" cols="10" sm="2">
           <div class="background" >
@@ -16,9 +16,9 @@
           </div>
         </v-col>
       </div> -->
-    
+
       <!-- <v-content class="px-5">
-        <v-data-iterator 
+        <v-data-iterator
           :items="cd_list"
           item-key="Id"
           :items-per-page="5"
@@ -30,50 +30,56 @@
               :key="item.Id"
               :cols="(4)"
               class="py-2"
-            > 
+            >
               <v-card class="card fill-height">
                 <v-card-title>
                     <span class="font-weight-light text-truncate">
-                      <span v-text="item.Id"></span> {{ item.Nom_Album }} 
+                      <span v-text="item.Id"></span> {{ item.Nom_Album }}
                     </span>
-                </v-card-title> 
+                </v-card-title>
               </v-card>
             </v-col>
           </v-row>
         </template>
-  
+
       </v-data-iterator>
     </v-content>
  -->
 
-   
+
     <v-col class="height-100 d-flex justify-center align-center" cols="12" sm="8" md="9">
       <div id="albums">
         <div class="boxAlbum"
-          v-for="item in cd_list" 
-          :key="item.id" 
-          v-bind:id="item.Id" 
+          v-for="item in cd_list"
+          :key="item.id"
+          v-bind:id="item.Id"
           :class="{ dispo: item.Dispo==1, nonDispo: item.Dispo==0}"
           @click=openThis(item)
           >
-           <v-img id="pochette" :src="getImageUrl(item.Nom_Album)"> </v-img> 
+           <v-img id="pochette" :src="getImageUrl(item.Nom_Album)"> </v-img>
           <p >{{item.Nom_Album}}</p>
         </div>
       </div>
     </v-col>
     <v-col class="height-100 d-flex justify-center align-center" cols="12" sm="4" md="3">
       <div class="div-cd">
-          <v-img :src="getImageUrl(url)" class="image-cd" id="cd-play"></v-img>
-          <button @click="stopThisSong()" >Stop</button>
+          <v-img :src="getImageUrl(url)" class="image-cd d-flex align-center" id="cd-play">
+            <div class="" id="centre-cd"></div>
+          </v-img>
+          <!-- <button  >Stop</button> -->
+          <v-icon @click="replayThisSong()">{{ svgPlay }}</v-icon>
+          <v-icon @click="pauseThisSong()">{{ svgPause }}</v-icon>
+          <v-icon @click="stopThisSong()">{{ svgStop }}</v-icon>
+
       </div>
     </v-col>
- 
-      
- 
 
 
 
-    
+
+
+
+
     <v-dialog v-model="dialog" transition="dialog-top-transition" height="100vh" width="50vw" persistent>
           <v-card>
               <v-card-title>
@@ -104,7 +110,7 @@
 
                                 </div>
                               </v-card>
-                         
+
                             </v-row>
                             <v-row id="rowImageAlbum">
                               <!-- <img class="classImageAlbum" :src="getImageUrl()"> -->
@@ -145,7 +151,11 @@
 
 <script  >
 import axios from 'axios';
-
+import { mdiDatabaseArrowDown } from '@mdi/js';
+import { mdiArrowRightDropCircleOutline } from '@mdi/js';
+import { mdiPauseCircleOutline } from '@mdi/js';
+import { mdiStopCircleOutline } from '@mdi/js';
+ 
 
 export default {
   name: 'AppTable',
@@ -161,7 +171,7 @@ export default {
       dialog: false,
       myAlbum: '',
       myArtist: '',
-      mySongNb:'',      
+      mySongNb:'',
       myAlbumModal: '',
       myArtistModal: '',
       mySongNbModal:'',
@@ -173,7 +183,11 @@ export default {
       track: '',
       cd_list: null,
       showModalEditCdPosition: false,
-      url: 'no_disque'
+      url: 'no_disque',
+      svgPath: mdiDatabaseArrowDown,
+      svgPlay: mdiArrowRightDropCircleOutline ,
+      svgPause: mdiPauseCircleOutline,
+      svgStop: mdiStopCircleOutline 
     }
   },
   methods:{
@@ -197,7 +211,7 @@ export default {
 
           console.log("liste en Json", Object.entries(Json_xData))
           console.log(JSON.parse(response.data.xTrackList))
-          
+
         }).catch(error => {
           this.errorMessage = error.message;
           console.error("There was an error!", error);
@@ -210,7 +224,7 @@ export default {
         const postData = { requete: "deleteThisAlbum", id: this.myIdModal};
         await axios.post(this.$flaskUrl+"/deleteThisAlbum", postData)
         .then(response => {
-          console.log(response.status);              
+          console.log(response.status);
         }).catch(error => {
           this.errorMessage = error.message;
           console.error("There was an error!", error);
@@ -222,19 +236,19 @@ export default {
       }
     },
     editThisAlbum(){
-  
+
     },
     async playThisSong(){
       console.log("play : ",this.myAlbumModal);
       const postData = { requete: "playThisSong", id: this.myIdModal};
       await axios.post(this.$flaskUrl+"/playThisSong", postData)
       .then(response => {
-        console.log(response.status);              
-        console.log("positions : "+response.data.pos); 
-        this.changeCdPlay(this.myAlbumModal);   
-        
+        console.log(response.status);
+        console.log("positions : "+response.data.pos);
+        this.changeCdPlay(this.myAlbumModal);
+
         document.getElementById('cd-play').classList.add("rotate")
-        //Ajouter la class rotate          
+        //Ajouter la class rotate
       }).catch(error => {
         this.errorMessage = error.message;
         console.error("There was an error!", error);
@@ -276,9 +290,9 @@ export default {
         const postData = { requete: "editCdPosition", id: this.myIdModal, cdPositionX: this.myAlbumPosX2, cdPositionY: this.myAlbumPosY2};
         axios.post(this.$flaskUrl+"/editCdPosition", postData)
         .then(response => {
-          console.log(response.status);     
-          this.myAlbumPosX = this.myAlbumPosX2         
-          this.myAlbumPosY = this.myAlbumPosY2         
+          console.log(response.status);
+          this.myAlbumPosX = this.myAlbumPosX2
+          this.myAlbumPosY = this.myAlbumPosY2
           this.listCd();
           // this.myAlbumPosX2 = this.myAlbumPosY2 = null
         }).catch(error => {
@@ -296,13 +310,19 @@ export default {
     stopThisSong(){
       this.url = 'no_disque'
       document.getElementById('cd-play').classList.remove("rotate")
+    },
+    pauseThisSong(){
+      document.getElementById('cd-play').classList.remove("rotate")
+    },
+    replayThisSong(){
+      document.getElementById('cd-play').classList.add("rotate")
     }
   },
   computed: {
 
 
   }
-  
+
 }
 </script>
 
@@ -393,16 +413,28 @@ export default {
   width: 100%;
 }
 
-.div-cd-play{
+/* .cd-play{
   background-color: red;
   height: 100%;
   width: 100%;
   padding-left: 0;
 }
+  */
+
 
 .height-100{
   height: 80vh;
   padding-top: 0px !important;
+}
+
+#centre-cd{
+  background-color: #fff2dc;
+  height: 34px;
+  width: 35px;
+  border-radius: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  border: solid 5px rgba(222, 222, 222, 0.352);
 }
 
 .image-cd{
