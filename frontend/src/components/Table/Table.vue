@@ -67,7 +67,8 @@
             <div class="" id="centre-cd"></div>
           </v-img>
           <!-- <button  >Stop</button> -->
-          <div class="d-flex align-center justify-center">
+          <!-- <div class="d-flex align-center justify-center"> -->
+          <div class="">
             <v-img class="btn-music" @click="replayThisSong()" src="../../assets/logoButtons/play-circle-outline.png"> </v-img>
             <v-img class="btn-music" @click="pauseThisSong()" src="../../assets/logoButtons/pause-circle-outline.png"> </v-img>
             <v-img class="btn-music" @click="stopThisSong()" src="../../assets/logoButtons/stop-circle-outline.png"> </v-img>
